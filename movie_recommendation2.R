@@ -282,6 +282,10 @@ rmse_results <- bind_rows(rmse_results,
 rmse_results %>% knitr::kable()
 
 #Top 10 best movies
+movie_titles <- movielens %>%
+  select(movieId, title) %>%
+  distinct()
+
 train_set %>%
   count(movieId) %>%
   left_join(movie_reg_avgs, by = "movieId") %>%
@@ -329,6 +333,3 @@ reco_train_dat <- with(train_set, data_memory(user_index = userId,
                                               item_index = movieId, 
                                               rating = rating))
 recos$train(reco_train_dat)
-
-#----------------------------------------------------
-

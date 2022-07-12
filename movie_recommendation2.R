@@ -234,6 +234,9 @@ movielens %>%
 #effect sizes choosing penalty terms
 
 #sort movies by rating 
+movie_titles <- movielens %>%
+  select(movieId, title) %>%
+  distinct()
 train_set %>%
   count(movieId) %>%
   left_join(movie_avgs, by = "movieId") %>%
@@ -282,10 +285,6 @@ rmse_results <- bind_rows(rmse_results,
 rmse_results %>% knitr::kable()
 
 #Top 10 best movies
-movie_titles <- movielens %>%
-  select(movieId, title) %>%
-  distinct()
-
 train_set %>%
   count(movieId) %>%
   left_join(movie_reg_avgs, by = "movieId") %>%
